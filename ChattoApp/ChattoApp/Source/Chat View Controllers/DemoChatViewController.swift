@@ -28,7 +28,8 @@ import ChattoAdditions
 
 class DemoChatViewController: BaseChatViewController {
     var shouldUseAlternativePresenter: Bool = false
-
+    lazy var messageList: [MockMessage] = [MockMessage(text: "randomSentence", user: SampleData.shared.currentSender, messageId: UUID().uuidString, date: dateAddingRandomTime())]
+    
     var messageSender: DemoChatMessageSender!
     let messagesSelector = BaseMessagesSelector()
 
@@ -41,7 +42,10 @@ class DemoChatViewController: BaseChatViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        collectionView?.messagesDataSource = self
+        collectionView?.messageCellDelegate = self
+        collectionView?.messagesLayoutDelegate = self
+        collectionView?.messagesDisplayDelegate = self
         self.cellPanGestureHandlerConfig.allowReplyRevealing = true
 
         self.title = "Chat"

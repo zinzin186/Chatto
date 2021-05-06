@@ -103,16 +103,18 @@ public class SlidingDataSource<Element> {
     }
 
     public func loadPrevious() {
-        let previousWindowOffset = self.windowOffset
-        let previousWindowCount = self.windowCount
-        let nextWindowOffset = max(0, self.windowOffset - self.pageSize)
-        let messagesNeeded = self.itemsOffset - nextWindowOffset
-        if messagesNeeded > 0 {
-            self.generateItems(messagesNeeded, position: .top)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            let previousWindowOffset = self.windowOffset
+            let previousWindowCount = self.windowCount
+            let nextWindowOffset = max(0, self.windowOffset - self.pageSize)
+            let messagesNeeded = self.itemsOffset - nextWindowOffset
+            if messagesNeeded > 0 {
+                self.generateItems(messagesNeeded, position: .top)
+            }
+            let newItemsCount = previousWindowOffset - nextWindowOffset
+            self.windowOffset = nextWindowOffset
+            self.windowCount = previousWindowCount + newItemsCount
         }
-        let newItemsCount = previousWindowOffset - nextWindowOffset
-        self.windowOffset = nextWindowOffset
-        self.windowCount = previousWindowCount + newItemsCount
     }
 
     public func loadNext() {

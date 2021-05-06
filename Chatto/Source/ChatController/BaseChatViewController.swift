@@ -54,7 +54,7 @@ open class BaseChatViewController: UIViewController,
             self.adjustCollectionViewInsets(shouldUpdateContentOffset: false)
         }
     }
-
+    
     public struct Constants {
         public var updatesAnimationDuration: TimeInterval = 0.33
         public var preferredMaxMessageCount: Int? = 500 // If not nil, will ask data source to reduce number of messages when limit is reached. @see ChatDataSourceDelegateProtocol
@@ -78,7 +78,7 @@ open class BaseChatViewController: UIViewController,
 
     open var customPresentersConfigurationPoint = false // If true then confugureCollectionViewWithPresenters() will not be called in viewDidLoad() method and has to be called manually
 
-    public private(set) var collectionView: UICollectionView?
+    public var collectionView: MessagesCollectionView?
     public final internal(set) var chatItemCompanionCollection = ChatItemCompanionCollection(items: [])
     private var _chatDataSource: ChatDataSourceProtocol?
     public final var chatDataSource: ChatDataSourceProtocol? {
@@ -159,7 +159,7 @@ open class BaseChatViewController: UIViewController,
     }
 
     private func addCollectionView() {
-        let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: self.createCollectionViewLayout())
+        let collectionView = MessagesCollectionView()
         collectionView.contentInset = self.layoutConfiguration.contentInsets
         collectionView.scrollIndicatorInsets = self.layoutConfiguration.scrollIndicatorInsets
         collectionView.alwaysBounceVertical = true
@@ -171,6 +171,7 @@ open class BaseChatViewController: UIViewController,
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.autoresizingMask = []
         self.view.addSubview(collectionView)
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell123")
         NSLayoutConstraint.activate([
             self.view.topAnchor.constraint(equalTo: collectionView.topAnchor),
             self.view.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor)

@@ -1,11 +1,19 @@
 PODS:
-  - Chatto (4.0.0)
+  - Chatto (4.0.0):
+    - InputBarAccessoryView
   - ChattoAdditions (4.0.0):
     - Chatto (= 4.0.0)
+  - InputBarAccessoryView (4.3.3):
+    - InputBarAccessoryView/Core (= 4.3.3)
+  - InputBarAccessoryView/Core (4.3.3)
 
 DEPENDENCIES:
   - Chatto (from `..`)
   - ChattoAdditions (from `..`)
+
+SPEC REPOS:
+  trunk:
+    - InputBarAccessoryView
 
 EXTERNAL SOURCES:
   Chatto:
@@ -14,9 +22,10 @@ EXTERNAL SOURCES:
     :path: ".."
 
 SPEC CHECKSUMS:
-  Chatto: 970c3546b01acdca60a7ba6de13cc73f62341fa7
+  Chatto: 56e2bd771a26c3e0be263b58e87ec5d45ebe400f
   ChattoAdditions: 914d976ef563161fcf632c69fd3b5cc1e8269fca
+  InputBarAccessoryView: 8e7fc09e9cba75e0fee5da13450e15c194806f69
 
-PODFILE CHECKSUM: 7e673449d94d383ef7c7669fdd0f282d4d0e7059
+PODFILE CHECKSUM: 0a75462215505f2abd065bff46dfd8a48636c5dd
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.10.0

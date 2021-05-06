@@ -24,21 +24,100 @@
 
 import UIKit
 
-extension BaseChatViewController: ChatCollectionViewLayoutDelegate {
+extension BaseChatViewController: ChatCollectionViewLayoutDelegate, UICollectionViewDelegateFlowLayout {
 
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.chatItemCompanionCollection.count
     }
 
+//    @objc(collectionView:cellForItemAtIndexPath:)
+//    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let presenter = self.presenterForIndexPath(indexPath)
+//        let cell = presenter.dequeueCell(collectionView: collectionView, indexPath: indexPath)
+//        let decorationAttributes = self.decorationAttributesForIndexPath(indexPath)
+//        presenter.configureCell(cell, decorationAttributes: decorationAttributes)
+////        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell123", for: indexPath)
+////        cell.backgroundColor = .red
+////        return cell
+//    }
     @objc(collectionView:cellForItemAtIndexPath:)
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let presenter = self.presenterForIndexPath(indexPath)
-        let cell = presenter.dequeueCell(collectionView: collectionView, indexPath: indexPath)
-        let decorationAttributes = self.decorationAttributesForIndexPath(indexPath)
-        presenter.configureCell(cell, decorationAttributes: decorationAttributes)
-        return cell
+
+        guard let messagesCollectionView = collectionView as? MessagesCollectionView else {
+            fatalError(MessageKitError.notMessagesCollectionView)
+        }
+
+        guard let messagesDataSource = messagesCollectionView.messagesDataSource else {
+            fatalError(MessageKitError.nilMessagesDataSource)
+        }
+
+//        if isSectionReservedForTypingIndicator(indexPath.section) {
+//            return messagesDataSource.typingIndicator(at: indexPath, in: messagesCollectionView)
+//        }
+
+        let message = messagesDataSource.messageForItem(at: indexPath, in: messagesCollectionView)
+
+        switch message.kind {
+        case .text, .attributedText, .emoji:
+            let cell = messagesCollectionView.dequeueReusableCell(TextMessageCell.self, for: indexPath)
+            cell.configure(with: message, at: indexPath, and: messagesCollectionView)
+            return cell
+        case .photo, .video:
+            let cell = messagesCollectionView.dequeueReusableCell(MediaMessageCell.self, for: indexPath)
+            cell.configure(with: message, at: indexPath, and: messagesCollectionView)
+            return cell
+        case .location:
+            let cell = messagesCollectionView.dequeueReusableCell(LocationMessageCell.self, for: indexPath)
+            cell.configure(with: message, at: indexPath, and: messagesCollectionView)
+            return cell
+        case .audio:
+            let cell = messagesCollectionView.dequeueReusableCell(AudioMessageCell.self, for: indexPath)
+            cell.configure(with: message, at: indexPath, and: messagesCollectionView)
+            return cell
+        case .contact:
+            let cell = messagesCollectionView.dequeueReusableCell(ContactMessageCell.self, for: indexPath)
+            cell.configure(with: message, at: indexPath, and: messagesCollectionView)
+            return cell
+        case .linkPreview:
+            let cell = messagesCollectionView.dequeueReusableCell(LinkPreviewMessageCell.self, for: indexPath)
+            cell.configure(with: message, at: indexPath, and: messagesCollectionView)
+            return cell
+        case .custom:
+            return messagesDataSource.customCell(for: message, at: indexPath, in: messagesCollectionView)
+        }
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        guard let messagesFlowLayout = collectionViewLayout as? MessagesCollectionViewFlowLayout else { return .zero }
+        return messagesFlowLayout.sizeForItem(at: indexPath)
     }
 
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+
+        guard let messagesCollectionView = collectionView as? MessagesCollectionView else {
+            fatalError(MessageKitError.notMessagesCollectionView)
+        }
+        guard let layoutDelegate = messagesCollectionView.messagesLayoutDelegate else {
+            fatalError(MessageKitError.nilMessagesLayoutDelegate)
+        }
+        
+        return layoutDelegate.headerViewSize(for: section, in: messagesCollectionView)
+    }
+
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        guard let messagesCollectionView = collectionView as? MessagesCollectionView else {
+            fatalError(MessageKitError.notMessagesCollectionView)
+        }
+        guard let layoutDelegate = messagesCollectionView.messagesLayoutDelegate else {
+            fatalError(MessageKitError.nilMessagesLayoutDelegate)
+        }
+        
+        return layoutDelegate.footerViewSize(for: section, in: messagesCollectionView)
+    }
+
+   
+
+    
     @objc(collectionView:didEndDisplayingCell:forItemAtIndexPath:)
     open func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         // Carefull: this index path can refer to old data source after an update. Don't use it to grab items from the model

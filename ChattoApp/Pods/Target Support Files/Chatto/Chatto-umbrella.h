@@ -10,6 +10,7 @@
 #endif
 #endif
 
+#import "MessageKit.h"
 
 FOUNDATION_EXPORT double ChattoVersionNumber;
 FOUNDATION_EXPORT const unsigned char ChattoVersionString[];

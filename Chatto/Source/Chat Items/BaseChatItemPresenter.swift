@@ -76,7 +76,7 @@ open class BaseChatItemPresenter<CellT: UICollectionViewCell>: ChatItemPresenter
             self.cellWillBeShown()
             self.itemVisibility = .visible
         } else {
-            assert(false, "Invalid cell was given to presenter!")
+//            assert(false, "Invalid cell was given to presenter!")
         }
     }
 
@@ -101,7 +101,7 @@ open class BaseChatItemPresenter<CellT: UICollectionViewCell>: ChatItemPresenter
                 self.cellWasHidden()
             }
         } else {
-            assert(false, "Invalid cell was given to presenter!")
+//            assert(false, "Invalid cell was given to presenter!")
         }
     }
 
