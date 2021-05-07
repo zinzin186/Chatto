@@ -51,8 +51,8 @@ class DummyChatItemPresenter: ChatItemPresenterProtocol {
 
     func configureCell(_ cell: MessageContentCell, decorationAttributes: ChatItemDecorationAttributesProtocol?, with message: MessageType, at indexPath: IndexPath, and messagesCollectionView: MessagesCollectionView) {
         cell.configure(with: message, at: indexPath, and: messagesCollectionView)
-        cell.isHidden = true
+        cell.isHidden = false
     }
 }
 
-class DummyCollectionViewCell: UICollectionViewCell {}
+class DummyCollectionViewCell: TextMessageCell {}

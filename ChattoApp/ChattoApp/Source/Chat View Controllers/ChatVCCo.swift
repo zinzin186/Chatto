@@ -46,6 +46,12 @@ extension DemoChatViewController: MessagesDataSource {
         case TextMessageModel<MessageModel>.chatItemType:
             let textItem = item as! DemoTextMessageModel
             return MockMessage(text: textItem.text, user: SampleData.shared.currentSender, messageId: textItem.uid, date: dateAddingRandomTime())
+        case MKMesssageModel.chatItemType:
+            let textItem = item as! MKMesssageModel
+            return MockMessage(text: textItem.date, user: SampleData.shared.currentSender, messageId: textItem.uid, date: dateAddingRandomTime())
+        case SendingStatusModel.chatItemType:
+            let textItem = item as! SendingStatusModel
+            return MockMessage(text: "fail", user: SampleData.shared.currentSender, messageId: textItem.uid, date: dateAddingRandomTime())
         default:
             return MockMessage(text: "randomSentence sfsdfds dsfdsfdsfs sfđsfsdf fsdfdsfsdf fdsfdsfsd fsdfsdfsdf fsdfsdfsdf fff", user: SampleData.shared.currentSender, messageId: UUID().uuidString, date: dateAddingRandomTime())
         }

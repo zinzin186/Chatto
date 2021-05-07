@@ -196,6 +196,7 @@ open class BaseMessageCollectionViewCell<BubbleViewType>: MessageContentCell, Ba
         self.avatarView.addGestureRecognizer(self.avatarTapGestureRecognizer)
         self.bubbleView = self.createBubbleView()
         self.bubbleView.isExclusiveTouch = true
+        bubbleView.isHidden = true
         self.bubbleView.addGestureRecognizer(self.tapGestureRecognizer)
         self.bubbleView.addGestureRecognizer(self.longPressGestureRecognizer)
         self.bubbleView.addGestureRecognizer(self.doubleTapGestureRecognizer)

@@ -29,12 +29,12 @@ import Chatto
 public class TimeSeparatorPresenterBuilder: ChatItemPresenterBuilderProtocol {
 
     public func canHandleChatItem(_ chatItem: ChatItemProtocol) -> Bool {
-        return chatItem is TimeSeparatorModel
+        return chatItem is MKMesssageModel
     }
 
     public func createPresenterWithChatItem(_ chatItem: ChatItemProtocol) -> ChatItemPresenterProtocol {
         assert(self.canHandleChatItem(chatItem))
-        return TimeSeparatorPresenter(timeSeparatorModel: chatItem as! TimeSeparatorModel)
+        return TimeSeparatorPresenter(timeSeparatorModel: chatItem as! MKMesssageModel)
     }
 
     public var presenterType: ChatItemPresenterProtocol.Type {
@@ -44,8 +44,8 @@ public class TimeSeparatorPresenterBuilder: ChatItemPresenterBuilderProtocol {
 
 class TimeSeparatorPresenter: ChatItemPresenterProtocol {
 
-    let timeSeparatorModel: TimeSeparatorModel
-    init (timeSeparatorModel: TimeSeparatorModel) {
+    let timeSeparatorModel: MKMesssageModel
+    init (timeSeparatorModel: MKMesssageModel) {
         self.timeSeparatorModel = timeSeparatorModel
     }
 
@@ -65,12 +65,6 @@ class TimeSeparatorPresenter: ChatItemPresenterProtocol {
 
     func configureCell(_ cell: MessageContentCell, decorationAttributes: ChatItemDecorationAttributesProtocol?, with message: MessageType, at indexPath: IndexPath, and messagesCollectionView: MessagesCollectionView) {
         cell.configure(with: message, at: indexPath, and: messagesCollectionView)
-        guard let timeSeparatorCell = cell as? TimeSeparatorCollectionViewCell else {
-//            assert(false, "expecting status cell")
-            return
-        }
-
-        timeSeparatorCell.text = self.timeSeparatorModel.date
     }
 
     var canCalculateHeightInBackground: Bool {
@@ -78,6 +72,6 @@ class TimeSeparatorPresenter: ChatItemPresenterProtocol {
     }
 
     func heightForCell(maximumWidth width: CGFloat, decorationAttributes: ChatItemDecorationAttributesProtocol?) -> CGFloat {
-        return 24
+        return 100
     }
 }

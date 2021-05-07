@@ -70,7 +70,7 @@ class SendingStatusPresenter: ChatItemPresenterProtocol {
     }
 
     static func registerCells(_ collectionView: UICollectionView) {
-        collectionView.register(UINib(nibName: "SendingStatusCollectionViewCell", bundle: Bundle(for: self)), forCellWithReuseIdentifier: "SendingStatusCollectionViewCell")
+        collectionView.register(SendingStatusCollectionViewCell.self, forCellWithReuseIdentifier: "SendingStatusCollectionViewCell")
     }
 
     let isItemUpdateSupported = false
@@ -84,6 +84,7 @@ class SendingStatusPresenter: ChatItemPresenterProtocol {
 
     func configureCell(_ cell: MessageContentCell, decorationAttributes: ChatItemDecorationAttributesProtocol?, with message: MessageType, at indexPath: IndexPath, and messagesCollectionView: MessagesCollectionView) {
         cell.configure(with: message, at: indexPath, and: messagesCollectionView)
+        cell.backgroundColor = .yellow
         guard let statusCell = cell as? SendingStatusCollectionViewCell else {
 //            assert(false, "expecting status cell")
             return
@@ -93,9 +94,9 @@ class SendingStatusPresenter: ChatItemPresenterProtocol {
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 10.0),
             NSAttributedString.Key.foregroundColor: self.statusModel.status == .failed ? UIColor.red : UIColor.black
         ]
-        statusCell.text = NSAttributedString(
-            string: self.statusText(),
-            attributes: attrs)
+//        statusCell.text = NSAttributedString(
+//            string: self.statusText(),
+//            attributes: attrs)
     }
 
     func statusText() -> String {
@@ -114,6 +115,6 @@ class SendingStatusPresenter: ChatItemPresenterProtocol {
     }
 
     func heightForCell(maximumWidth width: CGFloat, decorationAttributes: ChatItemDecorationAttributesProtocol?) -> CGFloat {
-        return 19
+        return 20
     }
 }

@@ -80,6 +80,7 @@ open class MediaMessageCell: MessageContentCell {
         }
 
         displayDelegate.configureMediaMessageImageView(imageView, for: message, at: indexPath, in: messagesCollectionView)
+        imageView.backgroundColor = .blue
     }
     
     /// Handle tap gesture on contentView and its subviews.

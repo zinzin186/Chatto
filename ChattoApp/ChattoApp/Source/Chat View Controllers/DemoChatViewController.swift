@@ -122,10 +122,10 @@ class DemoChatViewController: BaseChatViewController {
         )
 
         return [
-            DemoTextMessageModel.chatItemType: [textMessagePresenter],
+            DemoTextMessageModel.chatItemType: [TimeSeparatorPresenterBuilder()],
             DemoPhotoMessageModel.chatItemType: [photoMessagePresenter],
             SendingStatusModel.chatItemType: [SendingStatusPresenterBuilder()],
-            TimeSeparatorModel.chatItemType: [TimeSeparatorPresenterBuilder()],
+            MKMesssageModel.chatItemType: [TimeSeparatorPresenterBuilder()],
             ChatItemType.compoundItemType: [compoundPresenterBuilder],
             ChatItemType.compoundItemType2: [compoundPresenterBuilder2]
         ]

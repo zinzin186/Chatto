@@ -55,7 +55,7 @@ open class PhotoMessagePresenter<ViewModelBuilderT, InteractionHandlerT>
     }
 
     public final override class func registerCells(_ collectionView: UICollectionView) {
-        collectionView.register(PhotoMessageCollectionViewCell.self, forCellWithReuseIdentifier: "photo-message")
+        collectionView.register(MediaMessageCell.self, forCellWithReuseIdentifier: "photo-message")
     }
 
     open override var isItemUpdateSupported: Bool {
@@ -63,7 +63,7 @@ open class PhotoMessagePresenter<ViewModelBuilderT, InteractionHandlerT>
     }
 
     public final override func dequeueCell(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell {
-        return collectionView.dequeueReusableCell(withReuseIdentifier: "photo-message", for: indexPath)
+        return collectionView.dequeueReusableCell(withReuseIdentifier: "photo-message", for: indexPath) as! MediaMessageCell
     }
 
     open override func createViewModel() -> ViewModelBuilderT.ViewModelT {

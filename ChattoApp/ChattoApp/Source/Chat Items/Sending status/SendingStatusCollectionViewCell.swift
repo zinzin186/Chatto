@@ -23,14 +23,8 @@
 */
 
 import UIKit
+import Chatto
 
-class SendingStatusCollectionViewCell: UICollectionViewCell {
+class SendingStatusCollectionViewCell: TextMessageCell {
 
-    @IBOutlet private weak var label: UILabel!
-
-    var text: NSAttributedString? {
-        didSet {
-            self.label.attributedText = self.text
-        }
-    }
 }
