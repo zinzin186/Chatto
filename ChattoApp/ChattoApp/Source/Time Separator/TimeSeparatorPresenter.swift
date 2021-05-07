@@ -63,9 +63,10 @@ class TimeSeparatorPresenter: ChatItemPresenterProtocol {
         return collectionView.dequeueReusableCell(withReuseIdentifier: TimeSeparatorPresenter.cellReuseIdentifier, for: indexPath)
     }
 
-    func configureCell(_ cell: UICollectionViewCell, decorationAttributes: ChatItemDecorationAttributesProtocol?) {
+    func configureCell(_ cell: MessageContentCell, decorationAttributes: ChatItemDecorationAttributesProtocol?, with message: MessageType, at indexPath: IndexPath, and messagesCollectionView: MessagesCollectionView) {
+        cell.configure(with: message, at: indexPath, and: messagesCollectionView)
         guard let timeSeparatorCell = cell as? TimeSeparatorCollectionViewCell else {
-            assert(false, "expecting status cell")
+//            assert(false, "expecting status cell")
             return
         }
 

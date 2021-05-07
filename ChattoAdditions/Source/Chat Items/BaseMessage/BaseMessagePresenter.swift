@@ -104,13 +104,14 @@ open class BaseMessagePresenter<BubbleViewT, ViewModelBuilderT, InteractionHandl
         return viewModel
     }
 
-    public final override func configureCell(_ cell: UICollectionViewCell, decorationAttributes: ChatItemDecorationAttributesProtocol?) {
+    public final override func configureCell(_ cell: MessageContentCell, decorationAttributes: ChatItemDecorationAttributesProtocol?, with message: MessageType, at indexPath: IndexPath, and messagesCollectionView: MessagesCollectionView) {
+        cell.configure(with: message, at: indexPath, and: messagesCollectionView)
         guard let cell = cell as? CellT else {
-            assert(false, "Invalid cell given to presenter")
+//            assert(false, "Invalid cell given to presenter")
             return
         }
         guard let decorationAttributes = decorationAttributes as? ChatItemDecorationAttributes else {
-            assert(false, "Expecting decoration attributes")
+//            assert(false, "Expecting decoration attributes")
             return
         }
 

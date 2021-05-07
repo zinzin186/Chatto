@@ -30,7 +30,7 @@ public enum ChatItemVisibility {
     case visible
 }
 
-open class BaseChatItemPresenter<CellT: UICollectionViewCell>: ChatItemPresenterProtocol {
+open class BaseChatItemPresenter<CellT: MessageContentCell>: ChatItemPresenterProtocol {
     public final weak var cell: CellT?
 
     public init() {}
@@ -61,7 +61,7 @@ open class BaseChatItemPresenter<CellT: UICollectionViewCell>: ChatItemPresenter
         return UICollectionViewCell()
     }
 
-    open func configureCell(_ cell: UICollectionViewCell, decorationAttributes: ChatItemDecorationAttributesProtocol?) {
+    open func configureCell(_ cell: MessageContentCell, decorationAttributes: ChatItemDecorationAttributesProtocol?, with message: MessageType, at indexPath: IndexPath, and messagesCollectionView: MessagesCollectionView) {
         assert(false, "Implemenent in subclass")
     }
 

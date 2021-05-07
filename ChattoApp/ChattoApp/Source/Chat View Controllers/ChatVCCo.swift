@@ -36,11 +36,19 @@ extension DemoChatViewController: MessagesDataSource {
     }
     
     public func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
-        if let item = self.chatItemCompanionCollection[indexPath.item].chatItem as? DemoTextMessageModel {
-            let text = item.text
-            return MockMessage(text: text, user: SampleData.shared.currentSender, messageId: UUID().uuidString, date: dateAddingRandomTime())
+        let item = self.chatItemCompanionCollection[indexPath.item].chatItem
+        switch item.type {
+        case PhotoMessageModel<MessageModel>.chatItemType:
+            let photoItem = item as! DemoPhotoMessageModel
+            let sender = photoItem.isIncoming ? SampleData.shared.nathan : SampleData.shared.steven
+            return MockMessage(image: photoItem.image, user: sender, messageId: photoItem.uid, date: dateAddingRandomTime())
+            
+        case TextMessageModel<MessageModel>.chatItemType:
+            let textItem = item as! DemoTextMessageModel
+            return MockMessage(text: textItem.text, user: SampleData.shared.currentSender, messageId: textItem.uid, date: dateAddingRandomTime())
+        default:
+            return MockMessage(text: "randomSentence sfsdfds dsfdsfdsfs sfđsfsdf fsdfdsfsdf fdsfdsfsd fsdfsdfsdf fsdfsdfsdf fff", user: SampleData.shared.currentSender, messageId: UUID().uuidString, date: dateAddingRandomTime())
         }
-        return MockMessage(text: "randomSentence sfsdfds dsfdsfdsfs sfđsfsdf fsdfdsfsdf fdsfdsfsd fsdfsdfsdf fsdfsdfsdf fff", user: SampleData.shared.currentSender, messageId: UUID().uuidString, date: dateAddingRandomTime())
     }
     
     public func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {

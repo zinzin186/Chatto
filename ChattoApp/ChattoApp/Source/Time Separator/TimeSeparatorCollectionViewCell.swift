@@ -26,7 +26,7 @@ import Foundation
 import UIKit
 import Chatto
 
-class TimeSeparatorCollectionViewCell: UICollectionViewCell {
+class TimeSeparatorCollectionViewCell: MessageContentCell {
 
     private let label: UILabel = UILabel()
 

@@ -41,7 +41,8 @@ private struct CoordinateItem: LocationItem {
 
 }
 
-private struct ImageMediaItem: MediaItem {
+
+struct ImageMediaItem: MediaItem {
 
     var url: URL?
     var image: UIImage?
@@ -102,7 +103,8 @@ struct MockLinkItem: LinkItem {
     let thumbnailImage: UIImage
 }
 
-internal struct MockMessage: MessageType {
+
+struct MockMessage: MessageType {
 
     var messageId: String
     var sender: SenderType {

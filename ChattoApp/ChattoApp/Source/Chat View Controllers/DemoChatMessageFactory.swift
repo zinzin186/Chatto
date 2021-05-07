@@ -39,8 +39,8 @@ class DemoChatMessageFactory {
         if arc4random_uniform(100) % 2 == 0 {
             return self.makeRandomTextMessage(uid, isIncoming: isIncoming)
         } else {
-            return self.makeCompoundMessage(isIncoming: true)
-//            return self.makeRandomPhotoMessage(uid, isIncoming: isIncoming)
+//            return self.makeCompoundMessage(isIncoming: true)
+            return self.makeRandomPhotoMessage(uid, isIncoming: isIncoming)
         }
     }
 

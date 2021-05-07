@@ -83,7 +83,7 @@ public struct BaseMessageCollectionViewCellLayoutConstants {
         - Have a BubbleViewType that responds properly to sizeThatFits:
 */
 
-open class BaseMessageCollectionViewCell<BubbleViewType>: UICollectionViewCell, BackgroundSizingQueryable, AccessoryViewRevealable, ReplyIndicatorRevealable, UIGestureRecognizerDelegate where
+open class BaseMessageCollectionViewCell<BubbleViewType>: MessageContentCell, BackgroundSizingQueryable, AccessoryViewRevealable, ReplyIndicatorRevealable, UIGestureRecognizerDelegate where
     BubbleViewType: UIView,
     BubbleViewType: MaximumLayoutWidthSpecificable,
     BubbleViewType: BackgroundSizingQueryable {
@@ -148,7 +148,7 @@ open class BaseMessageCollectionViewCell<BubbleViewType>: UICollectionViewCell, 
         return nil
     }
 
-    public private(set) var avatarView: UIImageView!
+//    public private(set) var avatarView: UIImageView!
     open func createAvatarView() -> UIImageView! {
         let avatarImageView = UIImageView(frame: CGRect.zero)
         avatarImageView.isUserInteractionEnabled = true
@@ -192,7 +192,7 @@ open class BaseMessageCollectionViewCell<BubbleViewType>: UICollectionViewCell, 
     }()
 
     private func commonInit() {
-        self.avatarView = self.createAvatarView()
+//        self.avatarView = self.createAvatarView()
         self.avatarView.addGestureRecognizer(self.avatarTapGestureRecognizer)
         self.bubbleView = self.createBubbleView()
         self.bubbleView.isExclusiveTouch = true

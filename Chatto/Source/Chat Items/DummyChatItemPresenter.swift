@@ -49,7 +49,8 @@ class DummyChatItemPresenter: ChatItemPresenterProtocol {
         return collectionView.dequeueReusableCell(withReuseIdentifier: "cell-id-unhandled-message", for: indexPath)
     }
 
-    func configureCell(_ cell: UICollectionViewCell, decorationAttributes: ChatItemDecorationAttributesProtocol?) {
+    func configureCell(_ cell: MessageContentCell, decorationAttributes: ChatItemDecorationAttributesProtocol?, with message: MessageType, at indexPath: IndexPath, and messagesCollectionView: MessagesCollectionView) {
+        cell.configure(with: message, at: indexPath, and: messagesCollectionView)
         cell.isHidden = true
     }
 }

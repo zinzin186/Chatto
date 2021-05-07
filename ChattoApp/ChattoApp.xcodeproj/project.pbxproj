@@ -23,6 +23,9 @@
 		3D1D5844264473C800893FFC /* MockMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1D5840264473C800893FFC /* MockMessage.swift */; };
 		3D1D5845264473C800893FFC /* Lorem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1D5842264473C800893FFC /* Lorem.swift */; };
 		3D1D5846264473C800893FFC /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1D5843264473C800893FFC /* SampleData.swift */; };
+		3DFD79552644F311006F7B9B /* TimeSeparatorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFD79522644F311006F7B9B /* TimeSeparatorModel.swift */; };
+		3DFD79562644F311006F7B9B /* TimeSeparatorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFD79532644F311006F7B9B /* TimeSeparatorPresenter.swift */; };
+		3DFD79572644F311006F7B9B /* TimeSeparatorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFD79542644F311006F7B9B /* TimeSeparatorCollectionViewCell.swift */; };
 		5587302E1FCD7EE5005BC2EC /* MessagesSelectionChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5587302D1FCD7EE5005BC2EC /* MessagesSelectionChatViewController.swift */; };
 		558730341FCD8891005BC2EC /* AddRandomMessageChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558730331FCD8891005BC2EC /* AddRandomMessageChatViewController.swift */; };
 		55A77B4A1FCC5EE70040C77E /* MessagesSelectorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A77B491FCC5EE70040C77E /* MessagesSelectorProtocol.swift */; };
@@ -30,9 +33,6 @@
 		55EE230821BFFD6600D50A1C /* ScrollToBottomButtonChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EE230721BFFD6600D50A1C /* ScrollToBottomButtonChatViewController.swift */; };
 		C33FBFB01BDE441C008E3545 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C33FBFAF1BDE441C008E3545 /* Assets.xcassets */; };
 		C33FBFB31BDE441C008E3545 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C33FBFB11BDE441C008E3545 /* LaunchScreen.storyboard */; };
-		C341D42E1C9635DF00FD3463 /* TimeSeparatorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C341D42B1C9635DF00FD3463 /* TimeSeparatorModel.swift */; };
-		C341D42F1C9635DF00FD3463 /* TimeSeparatorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C341D42C1C9635DF00FD3463 /* TimeSeparatorPresenter.swift */; };
-		C341D4301C9635DF00FD3463 /* TimeSeparatorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C341D42D1C9635DF00FD3463 /* TimeSeparatorCollectionViewCell.swift */; };
 		C35A6F4F1BF807EC0085CA19 /* SlidingDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35A6F4E1BF807EC0085CA19 /* SlidingDataSourceTests.swift */; };
 		C3F91DB61C75EF9E00D461D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F91DA01C75EF9E00D461D2 /* AppDelegate.swift */; };
 		C3F91DB71C75EF9E00D461D2 /* DemoChatItemsDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F91DA11C75EF9E00D461D2 /* DemoChatItemsDecorator.swift */; };
@@ -100,6 +100,9 @@
 		3D1D5840264473C800893FFC /* MockMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockMessage.swift; sourceTree = "<group>"; };
 		3D1D5842264473C800893FFC /* Lorem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lorem.swift; sourceTree = "<group>"; };
 		3D1D5843264473C800893FFC /* SampleData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
+		3DFD79522644F311006F7B9B /* TimeSeparatorModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeSeparatorModel.swift; sourceTree = "<group>"; };
+		3DFD79532644F311006F7B9B /* TimeSeparatorPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeSeparatorPresenter.swift; sourceTree = "<group>"; };
+		3DFD79542644F311006F7B9B /* TimeSeparatorCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeSeparatorCollectionViewCell.swift; sourceTree = "<group>"; };
 		5587302D1FCD7EE5005BC2EC /* MessagesSelectionChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesSelectionChatViewController.swift; sourceTree = "<group>"; };
 		558730331FCD8891005BC2EC /* AddRandomMessageChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRandomMessageChatViewController.swift; sourceTree = "<group>"; };
 		55A77B491FCC5EE70040C77E /* MessagesSelectorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesSelectorProtocol.swift; sourceTree = "<group>"; };
@@ -113,9 +116,6 @@
 		C33FBFB41BDE441C008E3545 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C33FBFB91BDE441C008E3545 /* ChattoAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChattoAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C33FBFBF1BDE441C008E3545 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C341D42B1C9635DF00FD3463 /* TimeSeparatorModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimeSeparatorModel.swift; path = "Time Separator/TimeSeparatorModel.swift"; sourceTree = "<group>"; };
-		C341D42C1C9635DF00FD3463 /* TimeSeparatorPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimeSeparatorPresenter.swift; path = "Time Separator/TimeSeparatorPresenter.swift"; sourceTree = "<group>"; };
-		C341D42D1C9635DF00FD3463 /* TimeSeparatorCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimeSeparatorCollectionViewCell.swift; path = "Time Separator/TimeSeparatorCollectionViewCell.swift"; sourceTree = "<group>"; };
 		C35A6F4E1BF807EC0085CA19 /* SlidingDataSourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlidingDataSourceTests.swift; sourceTree = "<group>"; };
 		C3F91DA01C75EF9E00D461D2 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3F91DA11C75EF9E00D461D2 /* DemoChatItemsDecorator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoChatItemsDecorator.swift; sourceTree = "<group>"; };
@@ -201,16 +201,27 @@
 			path = "Data Generation";
 			sourceTree = "<group>";
 		};
+		3DFD79512644F311006F7B9B /* Time Separator */ = {
+			isa = PBXGroup;
+			children = (
+				3DFD79522644F311006F7B9B /* TimeSeparatorModel.swift */,
+				3DFD79532644F311006F7B9B /* TimeSeparatorPresenter.swift */,
+				3DFD79542644F311006F7B9B /* TimeSeparatorCollectionViewCell.swift */,
+			);
+			name = "Time Separator";
+			path = "ChattoApp/Source/Time Separator";
+			sourceTree = SOURCE_ROOT;
+		};
 		55A77B471FCC41CC0040C77E /* Chat Items */ = {
 			isa = PBXGroup;
 			children = (
+				3DFD79512644F311006F7B9B /* Time Separator */,
 				268CD56B21FA3C3900DEE2C2 /* Compound Messages */,
 				DECD501821AEEABF00988729 /* Content Aware Input  */,
 				55A77B481FCC42250040C77E /* Base Message */,
 				C3F91DAC1C75EF9E00D461D2 /* Photo Messages */,
 				C3F91DC81C75EFE300D461D2 /* Sending status */,
 				C3F91DB11C75EF9E00D461D2 /* Text Messages */,
-				C341D42A1C96359000FD3463 /* Time Separator */,
 			);
 			path = "Chat Items";
 			sourceTree = "<group>";
@@ -292,17 +303,6 @@
 				C33FBFBF1BDE441C008E3545 /* Info.plist */,
 			);
 			path = ChattoAppTests;
-			sourceTree = "<group>";
-		};
-		C341D42A1C96359000FD3463 /* Time Separator */ = {
-			isa = PBXGroup;
-			children = (
-				C341D42B1C9635DF00FD3463 /* TimeSeparatorModel.swift */,
-				C341D42C1C9635DF00FD3463 /* TimeSeparatorPresenter.swift */,
-				C341D42D1C9635DF00FD3463 /* TimeSeparatorCollectionViewCell.swift */,
-			);
-			name = "Time Separator";
-			path = ..;
 			sourceTree = "<group>";
 		};
 		C3F91D9F1C75EF9E00D461D2 /* Source */ = {
@@ -535,15 +535,14 @@
 				C3F91DB81C75EF9E00D461D2 /* ChatExamplesViewController.swift in Sources */,
 				C3F91DC31C75EF9E00D461D2 /* SlidingDatasSource.swift in Sources */,
 				EAEC841E253066C500F149CD /* DemoText2MessageContentFactory.swift in Sources */,
+				3DFD79562644F311006F7B9B /* TimeSeparatorPresenter.swift in Sources */,
 				55A77B4C1FCC5FFB0040C77E /* BaseMessagesSelector.swift in Sources */,
 				C3F91DC61C75EF9E00D461D2 /* DemoTextMessageViewModel.swift in Sources */,
-				C341D42E1C9635DF00FD3463 /* TimeSeparatorModel.swift in Sources */,
 				C3F91DBC1C75EF9E00D461D2 /* DemoChatViewController.swift in Sources */,
 				C3F91DBD1C75EF9E00D461D2 /* DemoChatDataSource.swift in Sources */,
 				C3F91DB61C75EF9E00D461D2 /* AppDelegate.swift in Sources */,
 				268CD57A22034A9900DEE2C2 /* DemoImageMessageContentFactory.swift in Sources */,
 				268CD56D21FA3C4C00DEE2C2 /* DemoCompoundMessageModel.swift in Sources */,
-				C341D42F1C9635DF00FD3463 /* TimeSeparatorPresenter.swift in Sources */,
 				C3F91DCE1C75EFE300D461D2 /* SendingStatusPresenter.swift in Sources */,
 				C3F91DC51C75EF9E00D461D2 /* DemoTextMessageModel.swift in Sources */,
 				266C7AE124B2AE2E00DB0F61 /* DemoEmojiDecorationViewFactory.swift in Sources */,
@@ -553,10 +552,12 @@
 				26FAADC423747B1300F62D01 /* AsyncAvatarLoadingViewController.swift in Sources */,
 				268CD578220336EB00DEE2C2 /* DemoTextMessageContentFactory.swift in Sources */,
 				C3F91DCC1C75EFE300D461D2 /* SendingStatusCollectionViewCell.swift in Sources */,
+				3DFD79572644F311006F7B9B /* TimeSeparatorCollectionViewCell.swift in Sources */,
 				26D63B4C250F3154007BC13C /* DemoReplyActionHandler.swift in Sources */,
 				C3F91DB71C75EF9E00D461D2 /* DemoChatItemsDecorator.swift in Sources */,
 				EAE6345722EB0CAD0053E21A /* TestItemsReloadingViewController.swift in Sources */,
 				0997CD2F2042E42100D7BDF9 /* CellsViewController.swift in Sources */,
+				3DFD79552644F311006F7B9B /* TimeSeparatorModel.swift in Sources */,
 				0997CD312042E58400D7BDF9 /* ChatWithTabBarExamplesViewController.swift in Sources */,
 				558730341FCD8891005BC2EC /* AddRandomMessageChatViewController.swift in Sources */,
 				DECD501A21AEEAF100988729 /* ContentAwareInputItem.swift in Sources */,
@@ -566,7 +567,6 @@
 				C3F91DBE1C75EF9E00D461D2 /* DemoChatMessageFactory.swift in Sources */,
 				3D1D5846264473C800893FFC /* SampleData.swift in Sources */,
 				3D1D5844264473C800893FFC /* MockMessage.swift in Sources */,
-				C341D4301C9635DF00FD3463 /* TimeSeparatorCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -93,7 +93,7 @@ open class TextMessagePresenter<ViewModelBuilderT, InteractionHandlerT>
         return nil
     }
 
-    open override func configureCell(_ cell: BaseMessageCollectionViewCell<TextBubbleView>, decorationAttributes: ChatItemDecorationAttributes, animated: Bool, additionalConfiguration: (() -> Void)?) {
+    open override func configureCell(_ cell: MessageContentCell, decorationAttributes: ChatItemDecorationAttributes, animated: Bool, additionalConfiguration: (() -> Void)?) {
         guard let cell = cell as? TextMessageCollectionViewCell else {
             assert(false, "Invalid cell received")
             return
