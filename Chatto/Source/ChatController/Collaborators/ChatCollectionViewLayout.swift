@@ -30,14 +30,14 @@ public protocol ChatCollectionViewLayoutDelegate: class {
 
 public struct ChatCollectionViewLayoutModel {
     let contentSize: CGSize
-    let layoutAttributes: [UICollectionViewLayoutAttributes]
-    let layoutAttributesBySectionAndItem: [[UICollectionViewLayoutAttributes]]
+    let layoutAttributes: [MessagesCollectionViewLayoutAttributes]
+    let layoutAttributesBySectionAndItem: [[MessagesCollectionViewLayoutAttributes]]
     let calculatedForWidth: CGFloat
 
     public static func createModel(_ collectionViewWidth: CGFloat, itemsLayoutData: [(height: CGFloat, bottomMargin: CGFloat)]) -> ChatCollectionViewLayoutModel {
-        var layoutAttributes = [UICollectionViewLayoutAttributes]()
-        var layoutAttributesBySectionAndItem = [[UICollectionViewLayoutAttributes]]()
-        layoutAttributesBySectionAndItem.append([UICollectionViewLayoutAttributes]())
+        var layoutAttributes = [MessagesCollectionViewLayoutAttributes]()
+        var layoutAttributesBySectionAndItem = [[MessagesCollectionViewLayoutAttributes]]()
+        layoutAttributesBySectionAndItem.append([MessagesCollectionViewLayoutAttributes]())
 
         var verticalOffset: CGFloat = 0
         for (index, layoutData) in itemsLayoutData.enumerated() {
@@ -45,7 +45,7 @@ public struct ChatCollectionViewLayoutModel {
             let (height, bottomMargin) = layoutData
             let itemSize = CGSize(width: collectionViewWidth, height: height)
             let frame = CGRect(origin: CGPoint(x: 0, y: verticalOffset), size: itemSize)
-            let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
+            let attributes = MessagesCollectionViewLayoutAttributes(forCellWith: indexPath)
             attributes.frame = frame
             layoutAttributes.append(attributes)
             layoutAttributesBySectionAndItem[0].append(attributes)
@@ -71,9 +71,13 @@ public struct ChatCollectionViewLayoutModel {
     }
 }
 
-open class ChatCollectionViewLayout: UICollectionViewLayout {
+open class ChatCollectionViewLayout: UICollectionViewFlowLayout {
     var layoutModel: ChatCollectionViewLayoutModel!
     public weak var delegate: ChatCollectionViewLayoutDelegate?
+    
+    open override class var layoutAttributesClass: AnyClass {
+        return MessagesCollectionViewLayoutAttributes.self
+    }
 
     // Optimization: after reloadData we'll get invalidateLayout, but prepareLayout will be delayed until next run loop.
     // Client may need to force prepareLayout after reloadData, but we don't want to compute layout again in the next run loop.
@@ -108,7 +112,7 @@ open class ChatCollectionViewLayout: UICollectionViewLayout {
     }
 
     open override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        var attributesArray = [UICollectionViewLayoutAttributes]()
+        var attributesArray = [MessagesCollectionViewLayoutAttributes]()
 
         // Find any cell that sits within the query rect.
         guard let firstMatchIndex = self.layoutModel.layoutAttributes.binarySearch(predicate: { attribute in

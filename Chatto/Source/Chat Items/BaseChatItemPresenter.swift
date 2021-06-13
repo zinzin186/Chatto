@@ -61,9 +61,13 @@ open class BaseChatItemPresenter<CellT: MessageContentCell>: ChatItemPresenterPr
         return UICollectionViewCell()
     }
 
-    open func configureCell(_ cell: MessageContentCell, decorationAttributes: ChatItemDecorationAttributesProtocol?, with message: MessageType, at indexPath: IndexPath, and messagesCollectionView: MessagesCollectionView) {
+    open func configureCell(_ cell: UICollectionViewCell, decorationAttributes: ChatItemDecorationAttributesProtocol?) {
         assert(false, "Implemenent in subclass")
     }
+    
+//    open func configureCell(_ cell: MessageContentCell, decorationAttributes: ChatItemDecorationAttributesProtocol?, with message: MessageType, at indexPath: IndexPath, and messagesCollectionView: MessagesCollectionView) {
+//        assert(false, "Implemenent in subclass")
+//    }
 
     final public private(set) var itemVisibility: ChatItemVisibility = .hidden
 

@@ -42,27 +42,11 @@ extension BaseChatViewController: ChatCollectionViewLayoutDelegate, UICollection
 //    }
     @objc(collectionView:cellForItemAtIndexPath:)
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
-        guard let messagesCollectionView = collectionView as? MessagesCollectionView else {
-            fatalError(MessageKitError.notMessagesCollectionView)
-        }
-
-        guard let messagesDataSource = messagesCollectionView.messagesDataSource else {
-            fatalError(MessageKitError.nilMessagesDataSource)
-        }
-
-//        if isSectionReservedForTypingIndicator(indexPath.section) {
-//            return messagesDataSource.typingIndicator(at: indexPath, in: messagesCollectionView)
-//        }
-
-        let message = messagesDataSource.messageForItem(at: indexPath, in: messagesCollectionView)
         let presenter = self.presenterForIndexPath(indexPath)
-        let decorationAttributes = self.decorationAttributesForIndexPath(indexPath)
-        
         let cell = presenter.dequeueCell(collectionView: collectionView, indexPath: indexPath)
-        presenter.configureCell(cell as! MessageContentCell, decorationAttributes: decorationAttributes, with: message, at: indexPath, and: messagesCollectionView)
+        let decorationAttributes = self.decorationAttributesForIndexPath(indexPath)
+        presenter.configureCell(cell, decorationAttributes: decorationAttributes)
         return cell
-       
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -70,28 +54,28 @@ extension BaseChatViewController: ChatCollectionViewLayoutDelegate, UICollection
         return messagesFlowLayout.sizeForItem(at: indexPath)
     }
 
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+//    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+//
+//        guard let messagesCollectionView = collectionView as? MessagesCollectionView else {
+//            fatalError(MessageKitError.notMessagesCollectionView)
+//        }
+//        guard let layoutDelegate = messagesCollectionView.messagesLayoutDelegate else {
+//            fatalError(MessageKitError.nilMessagesLayoutDelegate)
+//        }
+//
+//        return layoutDelegate.headerViewSize(for: section, in: messagesCollectionView)
+//    }
 
-        guard let messagesCollectionView = collectionView as? MessagesCollectionView else {
-            fatalError(MessageKitError.notMessagesCollectionView)
-        }
-        guard let layoutDelegate = messagesCollectionView.messagesLayoutDelegate else {
-            fatalError(MessageKitError.nilMessagesLayoutDelegate)
-        }
-        
-        return layoutDelegate.headerViewSize(for: section, in: messagesCollectionView)
-    }
-
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        guard let messagesCollectionView = collectionView as? MessagesCollectionView else {
-            fatalError(MessageKitError.notMessagesCollectionView)
-        }
-        guard let layoutDelegate = messagesCollectionView.messagesLayoutDelegate else {
-            fatalError(MessageKitError.nilMessagesLayoutDelegate)
-        }
-        
-        return layoutDelegate.footerViewSize(for: section, in: messagesCollectionView)
-    }
+//    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+//        guard let messagesCollectionView = collectionView as? MessagesCollectionView else {
+//            fatalError(MessageKitError.notMessagesCollectionView)
+//        }
+//        guard let layoutDelegate = messagesCollectionView.messagesLayoutDelegate else {
+//            fatalError(MessageKitError.nilMessagesLayoutDelegate)
+//        }
+//        
+//        return layoutDelegate.footerViewSize(for: section, in: messagesCollectionView)
+//    }
 
    
 

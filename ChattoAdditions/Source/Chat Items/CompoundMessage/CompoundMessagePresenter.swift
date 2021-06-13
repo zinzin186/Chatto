@@ -126,9 +126,7 @@ open class CompoundMessagePresenter<ViewModelBuilderT, InteractionHandlerT>
 
         self.decorationFactories = self.initialDecorationFactories.filter { $0.canCreateDecorationView(for: self.messageModel) }
 
-        if let previousIds = previousIds, previousIds != currentIds, let bubbleView = self.cell?.bubbleView {
-            self.updateContentViews(in: bubbleView)
-        }
+
     }
 
     open func updateExistingContentPresenters(with newMessage: Any) {
@@ -150,7 +148,7 @@ open class CompoundMessagePresenter<ViewModelBuilderT, InteractionHandlerT>
         return self.layoutProvider.layout(forMaxWidth: maxWidth).size.height
     }
 
-    open override func configureCell(_ cell: BaseMessageCollectionViewCell<CompoundBubbleView>,
+    open override func configureCell(_ cell: BaseMessageCollectionViewCell,
                                      decorationAttributes: ChatItemDecorationAttributes,
                                      animated: Bool,
                                      additionalConfiguration: (() -> Void)?) {
@@ -163,16 +161,7 @@ open class CompoundMessagePresenter<ViewModelBuilderT, InteractionHandlerT>
             defer { additionalConfiguration?() }
             guard let self = self else { return }
 
-            let bubbleView = compoundCell.bubbleView!
-
-            if bubbleView.decoratedContentViews == nil {
-                bubbleView.accessibilityIdentifier = self.accessibilityIdentifier
-                self.updateContentViews(in: bubbleView)
-            }
-
-            bubbleView.viewModel = self.messageViewModel
-            bubbleView.layoutProvider = self.layoutProvider
-            bubbleView.style = self.compoundCellStyle
+          
 
             /*
              There is a current algorithm of binding (and unbinding, as well) compoundCell's views to their presenters:
@@ -181,18 +170,6 @@ open class CompoundMessagePresenter<ViewModelBuilderT, InteractionHandlerT>
              3. CompoundCell's views bound with a current compound message presenters.
              */
 
-            self.contentPresenters.forEach { $0.unbindFromView() }
-            compoundCell.viewReferences = zip(self.contentPresenters, bubbleView.decoratedContentViews!.map({ $0.view })).map { presenter, view in
-                let viewReference = ViewReference(to: view)
-                presenter.bindToView(with: viewReference)
-                return viewReference
-            }
-
-            compoundCell.decorationViews = self.decorationFactories.map { factory in
-                let view = factory.makeDecorationView(for: self.messageModel)
-                let layoutProvider = factory.makeLayoutProvider(for: self.messageModel)
-                return (view, layoutProvider)
-            }
         }
     }
 
@@ -277,7 +254,6 @@ open class CompoundMessagePresenter<ViewModelBuilderT, InteractionHandlerT>
     // MARK: - ChatItemSpotlighting
 
     override open func spotlight() {
-        self.cell?.bubbleView?.spotlight()
     }
 
     // MARK: - MessageContentPresenterDelegate
@@ -338,6 +314,5 @@ open class CompoundMessagePresenter<ViewModelBuilderT, InteractionHandlerT>
         guard currentContentStatus != aggregatedContentStatus else { return }
 
         self.messageViewModel.messageContentTransferStatus = aggregatedContentStatus
-        self.cell?.updateFailedIconState()
     }
 }

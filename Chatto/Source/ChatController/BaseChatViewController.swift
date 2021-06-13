@@ -78,7 +78,7 @@ open class BaseChatViewController: UIViewController,
 
     open var customPresentersConfigurationPoint = false // If true then confugureCollectionViewWithPresenters() will not be called in viewDidLoad() method and has to be called manually
 
-    public var collectionView: MessagesCollectionView?
+    public var collectionView: UICollectionView?
     public final internal(set) var chatItemCompanionCollection = ChatItemCompanionCollection(items: [])
     private var _chatDataSource: ChatDataSourceProtocol?
     public final var chatDataSource: ChatDataSourceProtocol? {
@@ -159,7 +159,7 @@ open class BaseChatViewController: UIViewController,
     }
 
     private func addCollectionView() {
-        let collectionView = MessagesCollectionView()
+        let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: self.createCollectionViewLayout())
         collectionView.contentInset = self.layoutConfiguration.contentInsets
         collectionView.scrollIndicatorInsets = self.layoutConfiguration.scrollIndicatorInsets
         collectionView.alwaysBounceVertical = true

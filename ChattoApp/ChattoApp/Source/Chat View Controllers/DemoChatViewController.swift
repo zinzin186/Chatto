@@ -42,10 +42,10 @@ class DemoChatViewController: BaseChatViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView?.messagesDataSource = self
-        collectionView?.messageCellDelegate = self
-        collectionView?.messagesLayoutDelegate = self
-        collectionView?.messagesDisplayDelegate = self
+//        collectionView?.messagesDataSource = self
+//        collectionView?.messageCellDelegate = self
+//        collectionView?.messagesLayoutDelegate = self
+//        collectionView?.messagesDisplayDelegate = self
         self.cellPanGestureHandlerConfig.allowReplyRevealing = true
 
         self.title = "Chat"

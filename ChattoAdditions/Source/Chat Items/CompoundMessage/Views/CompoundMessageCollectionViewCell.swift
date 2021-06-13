@@ -24,11 +24,8 @@
 import UIKit
 
 @available(iOS 11, *)
-open class CompoundMessageCollectionViewCell: BaseMessageCollectionViewCell<CompoundBubbleView> {
+open class CompoundMessageCollectionViewCell: BaseMessageCollectionViewCell {
 
-    open override func createBubbleView() -> CompoundBubbleView! {
-        return CompoundBubbleView()
-    }
 
     public final var viewReferences: [ViewReference]?
 

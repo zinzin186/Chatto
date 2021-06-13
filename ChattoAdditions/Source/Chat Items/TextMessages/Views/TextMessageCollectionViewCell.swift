@@ -23,60 +23,60 @@
 */
 
 import UIKit
+import Chatto
 
 public typealias TextMessageCollectionViewCellStyleProtocol = TextBubbleViewStyleProtocol
 
-public final class TextMessageCollectionViewCell: BaseMessageCollectionViewCell<TextBubbleView> {
+public final class TextMessageCollectionViewCell: BaseMessageCollectionViewCell {
 
     public static func sizingCell() -> TextMessageCollectionViewCell {
         let cell = TextMessageCollectionViewCell(frame: CGRect.zero)
-        cell.viewContext = .sizing
         return cell
     }
 
     // MARK: Subclassing (view creation)
 
-    public override func createBubbleView() -> TextBubbleView {
-        return TextBubbleView()
-    }
+//Z    public override func createBubbleView() -> UIView {
+//Z        return UIView()
+//Z    }
 
-    public override func performBatchUpdates(_ updateClosure: @escaping () -> Void, animated: Bool, completion: (() -> Void)?) {
-        super.performBatchUpdates({ () -> Void in
-            self.bubbleView.performBatchUpdates(updateClosure, animated: false, completion: nil)
-        }, animated: animated, completion: completion)
-    }
-
-    // MARK: Property forwarding
-
-    override public var viewContext: ViewContext {
-        didSet {
-            self.bubbleView.viewContext = self.viewContext
-        }
-    }
-
-    public var textMessageViewModel: TextMessageViewModelProtocol! {
-        didSet {
-            self.accessibilityIdentifier = self.textMessageViewModel.cellAccessibilityIdentifier
-            self.messageViewModel = self.textMessageViewModel
-            self.bubbleView.textMessageViewModel = self.textMessageViewModel
-        }
-    }
-
-    public var textMessageStyle: TextMessageCollectionViewCellStyleProtocol! {
-        didSet {
-            self.bubbleView.style = self.textMessageStyle
-        }
-    }
-
-    override public var isSelected: Bool {
-        didSet {
-            self.bubbleView.selected = self.isSelected
-        }
-    }
-
-    public var layoutCache: NSCache<AnyObject, AnyObject>! {
-        didSet {
-            self.bubbleView.layoutCache = self.layoutCache
-        }
-    }
+//    public override func performBatchUpdates(_ updateClosure: @escaping () -> Void, animated: Bool, completion: (() -> Void)?) {
+//        super.performBatchUpdates({ () -> Void in
+//            self.bubbleView.performBatchUpdates(updateClosure, animated: false, completion: nil)
+//        }, animated: animated, completion: completion)
+//    }
+//
+//    // MARK: Property forwarding
+//
+//    override public var viewContext: ViewContext {
+//        didSet {
+//            self.bubbleView.viewContext = self.viewContext
+//        }
+//    }
+//
+//    public var textMessageViewModel: TextMessageViewModelProtocol! {
+//        didSet {
+//            self.accessibilityIdentifier = self.textMessageViewModel.cellAccessibilityIdentifier
+//            self.messageViewModel = self.textMessageViewModel
+//            self.bubbleView.textMessageViewModel = self.textMessageViewModel
+//        }
+//    }
+//
+//    public var textMessageStyle: TextMessageCollectionViewCellStyleProtocol! {
+//        didSet {
+//            self.bubbleView.style = self.textMessageStyle
+//        }
+//    }
+//
+//    override public var isSelected: Bool {
+//        didSet {
+//            self.bubbleView.selected = self.isSelected
+//        }
+//    }
+//
+//    public var layoutCache: NSCache<AnyObject, AnyObject>! {
+//        didSet {
+//            self.bubbleView.layoutCache = self.layoutCache
+//        }
+//    }
 }

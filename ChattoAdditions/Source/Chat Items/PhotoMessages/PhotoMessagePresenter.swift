@@ -90,15 +90,13 @@ open class PhotoMessagePresenter<ViewModelBuilderT, InteractionHandlerT>
         return nil
     }
 
-    open override func configureCell(_ cell: BaseMessageCollectionViewCell<PhotoBubbleView>, decorationAttributes: ChatItemDecorationAttributes, animated: Bool, additionalConfiguration: (() -> Void)?) {
+    open override func configureCell(_ cell: BaseMessageCollectionViewCell, decorationAttributes: ChatItemDecorationAttributes, animated: Bool, additionalConfiguration: (() -> Void)?) {
         guard let cell = cell as? PhotoMessageCollectionViewCell else {
             assert(false, "Invalid cell received")
             return
         }
 
         super.configureCell(cell, decorationAttributes: decorationAttributes, animated: animated) { () -> Void in
-            cell.photoMessageViewModel = self.messageViewModel
-            cell.photoMessageStyle = self.photoCellStyle
             additionalConfiguration?()
         }
     }

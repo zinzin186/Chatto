@@ -83,10 +83,7 @@ public struct BaseMessageCollectionViewCellLayoutConstants {
         - Have a BubbleViewType that responds properly to sizeThatFits:
 */
 
-open class BaseMessageCollectionViewCell<BubbleViewType>: MessageContentCell, BackgroundSizingQueryable, AccessoryViewRevealable, ReplyIndicatorRevealable, UIGestureRecognizerDelegate where
-    BubbleViewType: UIView,
-    BubbleViewType: MaximumLayoutWidthSpecificable,
-    BubbleViewType: BackgroundSizingQueryable {
+open class BaseMessageCollectionViewCell: MessageContentCell, BackgroundSizingQueryable, AccessoryViewRevealable, ReplyIndicatorRevealable {
 
     public var animationDuration: CFTimeInterval = 0.33
     open var viewContext: ViewContext = .normal
@@ -112,7 +109,6 @@ open class BaseMessageCollectionViewCell<BubbleViewType>: MessageContentCell, Ba
         didSet {
             oldValue?.avatarImage.removeObserver(self)
             self.updateViews()
-            self.observeAvatar()
             self.addBubbleViewConstraintsIfNeeded()
         }
     }
@@ -139,13 +135,12 @@ open class BaseMessageCollectionViewCell<BubbleViewType>: MessageContentCell, Ba
     open var useAutolayoutForBubbleView: Bool { false }
 
     open var canCalculateSizeInBackground: Bool {
-        return self.bubbleView.canCalculateSizeInBackground
+        return true
     }
 
-    public private(set) var bubbleView: BubbleViewType!
-    open func createBubbleView() -> BubbleViewType! {
-        assert(false, "Override in subclass")
-        return nil
+    public private(set) var bubbleView: MessageContainerView!
+    open func createBubbleView() -> MessageContainerView! {
+        return MessageContainerView()
     }
 
 //    public private(set) var avatarView: UIImageView!
@@ -165,26 +160,7 @@ open class BaseMessageCollectionViewCell<BubbleViewType>: MessageContentCell, Ba
         self.commonInit()
     }
 
-    public private(set) lazy var tapGestureRecognizer: UITapGestureRecognizer = {
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(BaseMessageCollectionViewCell.bubbleTapped(_:)))
-        tapGestureRecognizer.numberOfTapsRequired = 1
-        tapGestureRecognizer.delegate = self
-        return tapGestureRecognizer
-    }()
-
-    public private(set) lazy var doubleTapGestureRecognizer: UITapGestureRecognizer = {
-        let doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(BaseMessageCollectionViewCell.bubbleDoubleTapped(_:)))
-        doubleTapGestureRecognizer.numberOfTapsRequired = 2
-        doubleTapGestureRecognizer.delegate = self
-        return doubleTapGestureRecognizer
-    }()
-
-    public private (set) lazy var longPressGestureRecognizer: UILongPressGestureRecognizer = {
-        let longpressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(BaseMessageCollectionViewCell.bubbleLongPressed(_:)))
-        longpressGestureRecognizer.cancelsTouchesInView = true
-        longpressGestureRecognizer.delegate = self
-        return longpressGestureRecognizer
-    }()
+    
 
     public private(set) lazy var avatarTapGestureRecognizer: UITapGestureRecognizer = {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(BaseMessageCollectionViewCell.avatarTapped(_:)))
@@ -197,11 +173,7 @@ open class BaseMessageCollectionViewCell<BubbleViewType>: MessageContentCell, Ba
         self.bubbleView = self.createBubbleView()
         self.bubbleView.isExclusiveTouch = true
         bubbleView.isHidden = true
-        self.bubbleView.addGestureRecognizer(self.tapGestureRecognizer)
-        self.bubbleView.addGestureRecognizer(self.longPressGestureRecognizer)
-        self.bubbleView.addGestureRecognizer(self.doubleTapGestureRecognizer)
-        self.tapGestureRecognizer.require(toFail: self.longPressGestureRecognizer)
-        self.tapGestureRecognizer.require(toFail: self.doubleTapGestureRecognizer)
+        
         self.contentView.addSubview(self.avatarView)
         self.contentView.addSubview(self.bubbleView)
         self.contentView.addSubview(self.failedButton)
@@ -220,27 +192,7 @@ open class BaseMessageCollectionViewCell<BubbleViewType>: MessageContentCell, Ba
         return self.bubbleView.bounds.contains(touch.location(in: self.bubbleView))
     }
 
-    open func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        let allowLongPressGestureRecognizerToBeRecognizedWithAnyOtherGestureRecognizersExceptTapGestures = gestureRecognizer === self.longPressGestureRecognizer && !(otherGestureRecognizer is UITapGestureRecognizer)
-        let allowTapGestureRecognizerToBeRecognizedWithOtherTapGestures = [self.tapGestureRecognizer, self.doubleTapGestureRecognizer].contains(gestureRecognizer) && otherGestureRecognizer is UITapGestureRecognizer
-        return allowLongPressGestureRecognizerToBeRecognizedWithAnyOtherGestureRecognizersExceptTapGestures
-            || allowTapGestureRecognizerToBeRecognizedWithOtherTapGestures
-    }
-
-    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        if gestureRecognizer is UITapGestureRecognizer {
-            let allowTapGesturestToWaitUntilLongPressGesturesFail = otherGestureRecognizer == self.longPressGestureRecognizer
-            return allowTapGesturestToWaitUntilLongPressGesturesFail
-        }
-
-        guard let otherLongPressGestureRecognizer = otherGestureRecognizer as? UILongPressGestureRecognizer else {
-            return false
-        }
-
-        let allowLongPressGestureToWaitUntilOtherLongPressGesturesWithSingleTouchFail = gestureRecognizer == self.longPressGestureRecognizer && otherLongPressGestureRecognizer.numberOfTouchesRequired == 1
-        return allowLongPressGestureToWaitUntilOtherLongPressGesturesWithSingleTouchFail
-    }
-
+   
     open override func prepareForReuse() {
         super.prepareForReuse()
         self.removeAccessoryView()
@@ -291,17 +243,6 @@ open class BaseMessageCollectionViewCell<BubbleViewType>: MessageContentCell, Ba
         }
     }
 
-    private func observeAvatar() {
-        guard self.viewContext != .sizing else { return }
-        guard let viewModel = self.messageViewModel else { return }
-        self.avatarView.isHidden = !viewModel.decorationAttributes.isShowingAvatar
-        self.avatarView.image = viewModel.avatarImage.value
-        viewModel.avatarImage.observe(self) { [weak self] _, new in
-            guard let self = self else { return }
-            self.avatarView.image = new
-        }
-    }
-
     // MARK: layout
 
     private var didAddConstraintsForBubbleView = false
@@ -334,7 +275,6 @@ open class BaseMessageCollectionViewCell<BubbleViewType>: MessageContentCell, Ba
         self.failedButton.bma_rect = layout.failedButtonFrame
         if !self.useAutolayoutForBubbleView {
             self.bubbleView.bma_rect = layout.bubbleViewFrame
-            self.bubbleView.preferredMaxLayoutWidth = layout.preferredMaxWidthForBubble
             self.bubbleView.layoutIfNeeded()
         }
 

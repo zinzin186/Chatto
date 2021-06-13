@@ -112,14 +112,7 @@ extension BaseChatViewController {
 
         cellsToUpdate.forEach { (indexPath, cell) in
             let presenter = self.presenterForIndexPath(indexPath)
-            guard let messagesCollectionView = collectionView else {
-                fatalError(MessageKitError.notMessagesCollectionView)
-            }
-            guard let messagesDataSource = messagesCollectionView.messagesDataSource else {
-                fatalError(MessageKitError.nilMessagesDataSource)
-            }
-            let message = messagesDataSource.messageForItem(at: indexPath, in: messagesCollectionView)
-            presenter.configureCell(cell, decorationAttributes: self.decorationAttributesForIndexPath(indexPath), with: message, at: indexPath, and: messagesCollectionView)
+            presenter.configureCell(cell, decorationAttributes: self.decorationAttributesForIndexPath(indexPath))
             presenter.cellWillBeShown(cell) // `createModelUpdates` may have created a new presenter instance for existing visible cell so we need to tell it that its cell is visible
         }
     }

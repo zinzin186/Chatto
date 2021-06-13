@@ -26,7 +26,7 @@ import UIKit
 import Chatto
 
 open class TextMessagePresenter<ViewModelBuilderT, InteractionHandlerT>
-: BaseMessagePresenter<TextBubbleView, ViewModelBuilderT, InteractionHandlerT> where
+: BaseMessagePresenter<UIView, ViewModelBuilderT, InteractionHandlerT> where
     ViewModelBuilderT: ViewModelBuilderProtocol,
     ViewModelBuilderT.ViewModelT: TextMessageViewModelProtocol,
     InteractionHandlerT: BaseMessageInteractionHandlerProtocol,
@@ -100,9 +100,9 @@ open class TextMessagePresenter<ViewModelBuilderT, InteractionHandlerT>
         }
 
         super.configureCell(cell, decorationAttributes: decorationAttributes, animated: animated) { () -> Void in
-            cell.layoutCache = self.layoutCache
-            cell.textMessageViewModel = self.messageViewModel
-            cell.textMessageStyle = self.textCellStyle
+//            cell.layoutCache = self.layoutCache
+//            cell.textMessageViewModel = self.messageViewModel
+//            cell.textMessageStyle = self.textCellStyle
             additionalConfiguration?()
         }
     }

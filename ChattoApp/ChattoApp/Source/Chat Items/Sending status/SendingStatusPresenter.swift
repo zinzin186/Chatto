@@ -82,8 +82,7 @@ class SendingStatusPresenter: ChatItemPresenterProtocol {
         return cell
     }
 
-    func configureCell(_ cell: MessageContentCell, decorationAttributes: ChatItemDecorationAttributesProtocol?, with message: MessageType, at indexPath: IndexPath, and messagesCollectionView: MessagesCollectionView) {
-        cell.configure(with: message, at: indexPath, and: messagesCollectionView)
+    func configureCell(_ cell: UICollectionViewCell, decorationAttributes: ChatItemDecorationAttributesProtocol?) {
         cell.backgroundColor = .yellow
         guard let statusCell = cell as? SendingStatusCollectionViewCell else {
 //            assert(false, "expecting status cell")

@@ -47,16 +47,14 @@ public protocol BaseMessageInteractionHandlerProtocol {
     func userDidDeselectMessage(message: MessageType, viewModel: ViewModelType)
 }
 
-open class BaseMessagePresenter<BubbleViewT, ViewModelBuilderT, InteractionHandlerT>: BaseChatItemPresenter<BaseMessageCollectionViewCell<BubbleViewT>> where
+open class BaseMessagePresenter<BubbleViewT, ViewModelBuilderT, InteractionHandlerT>: BaseChatItemPresenter<BaseMessageCollectionViewCell> where
     ViewModelBuilderT: ViewModelBuilderProtocol,
     InteractionHandlerT: BaseMessageInteractionHandlerProtocol,
     InteractionHandlerT.MessageType == ViewModelBuilderT.ModelT,
     InteractionHandlerT.ViewModelType == ViewModelBuilderT.ViewModelT,
-    BubbleViewT: UIView,
-    BubbleViewT: MaximumLayoutWidthSpecificable,
-    BubbleViewT: BackgroundSizingQueryable {
+    BubbleViewT: UIView {
 
-    public typealias CellT = BaseMessageCollectionViewCell<BubbleViewT>
+    public typealias CellT = BaseMessageCollectionViewCell
     public typealias ModelT = ViewModelBuilderT.ModelT
     public typealias ViewModelT = ViewModelBuilderT.ViewModelT
 
@@ -64,7 +62,7 @@ open class BaseMessagePresenter<BubbleViewT, ViewModelBuilderT, InteractionHandl
         messageModel: ModelT,
         viewModelBuilder: ViewModelBuilderT,
         interactionHandler: InteractionHandlerT?,
-        sizingCell: BaseMessageCollectionViewCell<BubbleViewT>,
+        sizingCell: BaseMessageCollectionViewCell,
         cellStyle: BaseMessageCollectionViewCellStyleProtocol) {
             self.messageModel = messageModel
             self.sizingCell = sizingCell
@@ -92,7 +90,7 @@ open class BaseMessagePresenter<BubbleViewT, ViewModelBuilderT, InteractionHandl
         self.messageModel = newMessageModel
     }
 
-    public let sizingCell: BaseMessageCollectionViewCell<BubbleViewT>
+    public let sizingCell: BaseMessageCollectionViewCell
     public let viewModelBuilder: ViewModelBuilderT
     public let interactionHandler: InteractionHandlerT?
     public let cellStyle: BaseMessageCollectionViewCellStyleProtocol
@@ -104,21 +102,21 @@ open class BaseMessagePresenter<BubbleViewT, ViewModelBuilderT, InteractionHandl
         return viewModel
     }
 
-    public final override func configureCell(_ cell: MessageContentCell, decorationAttributes: ChatItemDecorationAttributesProtocol?, with message: MessageType, at indexPath: IndexPath, and messagesCollectionView: MessagesCollectionView) {
-        cell.configure(with: message, at: indexPath, and: messagesCollectionView)
+    public final override func configureCell(_ cell: UICollectionViewCell, decorationAttributes: ChatItemDecorationAttributesProtocol?) {
+        print("$$$BaseMessagePresenter call func messageCell.configure")
         guard let cell = cell as? CellT else {
-//            assert(false, "Invalid cell given to presenter")
+            assert(false, "Invalid cell given to presenter")
             return
         }
         guard let decorationAttributes = decorationAttributes as? ChatItemDecorationAttributes else {
-//            assert(false, "Expecting decoration attributes")
+            assert(false, "Expecting decoration attributes")
             return
         }
 
         self.decorationAttributes = decorationAttributes
         self.configureCell(cell, decorationAttributes: decorationAttributes, animated: false, additionalConfiguration: nil)
     }
-
+    
     public var decorationAttributes: ChatItemDecorationAttributes!
     open func configureCell(_ cell: CellT, decorationAttributes: ChatItemDecorationAttributes, animated: Bool, additionalConfiguration: (() -> Void)?) {
         cell.performBatchUpdates({ () -> Void in
@@ -151,7 +149,7 @@ open class BaseMessagePresenter<BubbleViewT, ViewModelBuilderT, InteractionHandl
             }
             cell.onFailedButtonTapped = { [weak self] (cell) in
                 guard let sSelf = self else { return }
-                sSelf.onCellFailedButtonTapped(cell.failedButton)
+//                sSelf.onCellFailedButtonTapped(cell.failedButton)
             }
             cell.onSelection = { [weak self] (cell) in
                 guard let sSelf = self else { return }
